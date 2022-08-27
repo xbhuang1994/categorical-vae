@@ -17,7 +17,7 @@ use_wandb = False
 
 if use_wandb:
     wandb_run = wandb.init(
-        entity="jack-morris",
+        entity="og",
         project="categorical-vae",
     )
     training_run_id = wandb_run.id

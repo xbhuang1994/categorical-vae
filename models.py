@@ -59,7 +59,7 @@ class Encoder(torch.nn.Module):
                 torch.nn.Conv2d(1, 8, 3, stride=2, padding=1),
                 torch.nn.ReLU(),
                 torch.nn.Conv2d(8, 16, 3, stride=2, padding=1),
-                torch.nn.BatchNorm2d(16),
+                torch.nn.BatchNorm2d(16), 
                 torch.nn.ReLU(),
                 torch.nn.Conv2d(16, 32, 3, stride=2, padding=0),
                 torch.nn.ReLU(),
