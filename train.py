@@ -1,3 +1,5 @@
+from fileinput import filename
+from logging import root
 import math
 import numpy as np
 import os
@@ -5,11 +7,13 @@ import torch
 import torchvision
 import tqdm
 import wandb
+import pandas as pd
 from PIL import Image
 
 import torch.distributions as dist
 import torch.optim as optim
 import torchvision.transforms as transforms
+import data_loader
 
 from models import Encoder, Decoder, CategoricalVAE
 
@@ -24,6 +28,9 @@ if use_wandb:
 else:
     training_run_id = 'default'
 
+def load_training_csv():
+   return data_loader.load_training_csv("D:/workspace/stock-strategy/data/tick/test/")
+    
 def load_training_data():
     # TODO implement datasets better
     # transform = transforms.Compose([transforms.ToTensor(), transforms.Normalize((0.5,), (1.0,))])
@@ -63,14 +70,16 @@ def main() -> None:
     temperature_anneal_rate = 0.00003
     K = 10 # number of classes
     N = 30 # number of categorical distributions
-
-    training_images = load_training_data()
+    
+    # training_datas = torch.unsqueeze(torch.from_numpy(load_training_csv()),dim = 1)
+    training_datas = load_training_csv()
+    #卡在这里了
+    return
     train_dataset = torch.utils.data.DataLoader(
-        dataset=training_images,
+        dataset=training_datas,
         batch_size=batch_size,
         shuffle=True
     )
-
     image_shape = next(iter(train_dataset))[0][0].shape # [1, 28, 28]
     encoder = Encoder(N, K, image_shape)
     decoder = Decoder(N, K, image_shape)

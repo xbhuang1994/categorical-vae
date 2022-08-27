@@ -56,12 +56,12 @@ class Encoder(torch.nn.Module):
         print('N =', N, 'and K =', K)
         if convolutional:
             self.network = torch.nn.Sequential(
-                torch.nn.Conv2d(1, 8, 3, stride=2, padding=1),
+                torch.nn.Conv1d(1, 8, 3, stride=2, padding=1),
                 torch.nn.ReLU(),
-                torch.nn.Conv2d(8, 16, 3, stride=2, padding=1),
+                torch.nn.Conv1d(8, 16, 3, stride=2, padding=1),
                 torch.nn.BatchNorm2d(16), 
                 torch.nn.ReLU(),
-                torch.nn.Conv2d(16, 32, 3, stride=2, padding=0),
+                torch.nn.Conv1d(16, 32, 3, stride=2, padding=0),
                 torch.nn.ReLU(),
                 torch.nn.Flatten(),
                 torch.nn.Linear(3 * 3 * 32, 128),
